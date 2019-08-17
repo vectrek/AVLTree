@@ -120,6 +120,30 @@ func RemoveInt(tree **Node, i int) {
 	Remove(tree, data)
 }
 
+// Insert a node into the AVL tree.
+func InsertFloat32(tree **Node, i float32) {
+	data := float32Key(i)
+	Insert(tree, data)
+}
+
+// Remove a single item from an AVL tree.
+func RemoveFloat32(tree **Node, i float32) {
+	data := float32Key(i)
+	Remove(tree, data)
+}
+
+// Insert a node into the AVL tree.
+func InsertString(tree **Node, i string) {
+	data := stringKey(i)
+	Insert(tree, data)
+}
+
+// Remove a single item from an AVL tree.
+func RemoveString(tree **Node, i string) {
+	data := stringKey(i)
+	Remove(tree, data)
+}
+
 func removeBalance(root *Node, dir int) (*Node, bool) {
 	n := root.Link[opp(dir)]
 	bal := 2*dir - 1
@@ -178,6 +202,14 @@ func removeR(root *Node, data Key) (*Node, bool) {
 type intKey int
 func (k intKey) Less(k2 Key) bool { return k < k2.(intKey) }
 func (k intKey) Eq(k2 Key) bool   { return k == k2.(intKey) }
+
+type float32Key float32
+func (k float32Key) Less(k2 Key) bool { return k < k2.(float32Key) }
+func (k float32Key) Eq(k2 Key) bool   { return k == k2.(float32Key) }
+
+type stringKey string
+func (k stringKey) Less(k2 Key) bool { return k < k2.(stringKey) }
+func (k stringKey) Eq(k2 Key) bool   { return k == k2.(stringKey) }
 
 var (
 	flagDemo      = flag.Bool("demo", false, "don't remove working directory")
