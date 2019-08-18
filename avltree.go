@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/vectrek/pyoji"
 )
 
 type Key interface {
@@ -20,11 +21,13 @@ type Node struct {
 
 
 func opp(dir int) int {
+	pyoji.Got("opp")
 	return 1 - dir
 }
 
 // single rotation
 func single(root *Node, dir int) *Node {
+	pyoji.Got("single")
 	save := root.Link[opp(dir)]
 	root.Link[opp(dir)] = save.Link[dir]
 	save.Link[dir] = root
@@ -33,6 +36,7 @@ func single(root *Node, dir int) *Node {
 
 // double rotation
 func double(root *Node, dir int) *Node {
+	pyoji.Got("double")
 	save := root.Link[opp(dir)].Link[dir]
 
 	root.Link[opp(dir)].Link[dir] = save.Link[opp(dir)]
@@ -47,6 +51,7 @@ func double(root *Node, dir int) *Node {
 
 // adjust valance factors after double rotation
 func adjustBalance(root *Node, dir, bal int) {
+	pyoji.Got("adjustBalance")
 	n := root.Link[dir]
 	nn := n.Link[opp(dir)]
 	switch nn.Balance {
@@ -64,6 +69,7 @@ func adjustBalance(root *Node, dir, bal int) {
 }
 
 func insertBalance(root *Node, dir int) *Node {
+	pyoji.Got("insertBalance")
 	n := root.Link[dir]
 	bal := 2*dir - 1
 	if n.Balance == bal {
@@ -76,6 +82,7 @@ func insertBalance(root *Node, dir int) *Node {
 }
 
 func insertR(root *Node, data Key) (*Node, bool) {
+	pyoji.Got("insertR")
 	if root == nil {
 		return &Node{Data: data}, false
 	}
@@ -145,6 +152,7 @@ func RemoveString(tree **Node, i string) {
 }
 
 func removeBalance(root *Node, dir int) (*Node, bool) {
+	pyoji.Got("removeBalance")
 	n := root.Link[opp(dir)]
 	bal := 2*dir - 1
 	switch n.Balance {
@@ -162,6 +170,7 @@ func removeBalance(root *Node, dir int) (*Node, bool) {
 }
 
 func removeR(root *Node, data Key) (*Node, bool) {
+	pyoji.Got("removeR")
 	if root == nil {
 		return nil, false
 	}
